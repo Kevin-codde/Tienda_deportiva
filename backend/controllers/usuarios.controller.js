@@ -79,7 +79,8 @@ const login = async (req,res)=>{
          return res.status(200).json({mess: "Sesion iniciada con exito",
             usuario: {
                     id: usuario.id_usuario,
-                    nombre: usuario.nombre_usuario
+                    nombre: usuario.nombre_usuario,
+                    rol: usuario.rol_usuario
                 }
          })
          
