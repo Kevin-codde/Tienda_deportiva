@@ -1,5 +1,6 @@
 const pool = require('../config/db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 //tomar usuarios registrados
@@ -75,13 +76,27 @@ const login = async (req,res)=>{
       const comparePass = await bcrypt.compare(password_usuario,usuario.password_usuario)
 
       if(comparePass){
-        
+        //asignar payload
+
+         const payload = {
+            'id_usuario' : usuario.id_usuario,
+            'nombre_usuario': usuario.nombre_usuario,
+            'rol_usuario': usuario.rol_usuario
+
+         }      
+
+         //generar token
+
+         const token = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1h'});
+
+         //mensaje de confirmacion ahora com usuario y token jwt asignados
          return res.status(200).json({mess: "Sesion iniciada con exito",
             usuario: {
                     id: usuario.id_usuario,
                     nombre: usuario.nombre_usuario,
                     rol: usuario.rol_usuario
-                }
+                },
+            token:token
          })
          
 
