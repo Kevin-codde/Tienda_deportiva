@@ -1,6 +1,11 @@
 const express = require("express")
 const router = express.Router();
 
+//importar funciones de seguridad
+const {verificarToken} = require('../middlewares/auth.middleware');
+const {isAdmin} = require('../middlewares/rol.middleware');
+
+
 
 
 const {
@@ -8,7 +13,10 @@ const {
     postProductos
 } = require('../controllers/productos.controller');
 
-router.get("/",getProductos)
-router.post("/",postProductos)
+//RUTA PUBLICA
+router.get("/",getProductos);
+
+//RUTA PROTEGIDA
+router.post("/",verificarToken,isAdmin,postProductos);
 
 module.exports = router;
