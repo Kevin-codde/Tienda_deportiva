@@ -17,6 +17,6 @@ const {
 router.get("/",getProductos);
 
 //RUTA PROTEGIDA
-router.post("/",verificarToken,isAdmin,postProductos);
+router.post("/crear",verificarToken,isAdmin,postProductos);
 
 module.exports = router;

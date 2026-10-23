@@ -12,9 +12,12 @@ app.use(express.json())
 
 const rutasProductos = require("./routes/productos.routes")
 const rutasUsuarios = require("./routes/usuarios.routes")
+const rutasVentas = require("./routes/ventas.routes")
 
 app.use('/productos',rutasProductos);
 app.use('/usuario',rutasUsuarios);
+app.use('/ventas',rutasVentas)
+
 
 app.get("/",(req,res)=>{
     res.send("Servidor funcionando")
