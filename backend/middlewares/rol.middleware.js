@@ -5,7 +5,7 @@ const isAdmin = (req,res,next)=>{
 
     const userRol = user ? user.rol_usuario : null;
 
-    if(!user || useRol !== 'admin' ){
+    if(!user || userRol !== 'admin' ){
         return res.status(403).json({mess:"Acceso denegado, debe ser administrador"})
 
     }

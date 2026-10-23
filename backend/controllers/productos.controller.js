@@ -17,37 +17,47 @@ const getProductos = async  (req,res)=>{
 
 const postProductos = async (req,res)=>{
     try{
-        var {nombre_producto,
+        var {
+           
+            nombre_producto,
             descripcion_producto,
             precio_producto,
-            usuario_id,
+            id_usuario,
             stock_producto,
             talla_producto} = req.body;
         
         if(!nombre_producto || !descripcion_producto || !precio_producto){
             return res.status(400).json({error: "faltan campos"})
         }
+
+           console.log(req.body);
+
             const [result] = 
-            await pool.query(`INSERT INTO Productos(nombre_producto,
+            await pool.query(`INSERT INTO Productos(
+            nombre_producto,
             descripcion_producto,
             precio_producto,
-            usuario_id,
+            id_usuario,
             stock_producto,
-            talla_producto) VALUES(?,?,?,?,?,?)`
+            talla_producto) VALUES (?,?,?,?,?,?)`,
 
-            [nombre_producto,descripcion_producto,precio_producto,usuario_id,stock_producto,talla_producto]
+            [nombre_producto,descripcion_producto,precio_producto,id_usuario,stock_producto,talla_producto]
         )
+
+        console.log(req.body);
 
         res.json({message: "Producto registrado exitosamente!!"},{id: result.insertId});
 
 
     }
+
     catch(err){
-        console.log(err);
+        console.log("error encontrado: ",err);
         res.status(500).json({error: "No se pudo publicar el producto"})
     }
 }
 
+//Agregar una funcion para eliminar un producto y actualizar los datos de un producto
 
 module.exports = {
     getProductos,
